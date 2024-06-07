@@ -6,6 +6,7 @@ import Col from "react-bootstrap/Col";
 import "bootstrap/dist/css/bootstrap.min.css";
 import useImagePreview from "./hooks/useImagePreview";
 import Form from "react-bootstrap/Form";
+import TWICE from "./assets/twice_one.jpg";
 
 function App() {
   const [image, setImage] = useState<File | null>(null);
@@ -97,9 +98,20 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <Container>
+    <div
+      className="App"
+      style={{
+        background: `url(${TWICE})`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backdropFilter: "blur(2px)",
+      }}
+    >
+      <Container style={{ background: "rgba(255,255,255, .5)" }}>
         <Row>
+          <Col md={12}>
+            <h1>TWICE FILTER APP</h1>
+          </Col>
           <Col md={8}>
             <div
               style={{
