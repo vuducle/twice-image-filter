@@ -107,7 +107,10 @@ function App() {
         backdropFilter: "blur(2px)",
       }}
     >
-      <Container style={{ background: "rgba(255,255,255, .5)" }}>
+      <Container
+        style={{ background: "rgba(255,255,255, .5)" }}
+        className="p-5"
+      >
         <Row>
           <Col md={12}>
             <h1>TWICE FILTER APP</h1>
