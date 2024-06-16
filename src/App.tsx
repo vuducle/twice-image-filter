@@ -4,8 +4,14 @@ import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
 import Filter from "./Components/Filter";
 import NewsPage from "./Components/NewsPage";
+import { Col, Row } from "react-bootstrap";
 
 function App() {
+  const RedirectSite = () => {
+    window.location.href = "/twice-memory.html";
+    return <></>;
+  };
+
   return (
     <Router>
       <Navbar bg="light" expand="lg">
@@ -22,6 +28,9 @@ function App() {
               <Nav.Link as={Link} to="/news">
                 News-App
               </Nav.Link>
+              <Nav.Link as={Link} to="/memory">
+                TWICE-Memory-Game
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -30,7 +39,38 @@ function App() {
       <Routes>
         <Route path="/" element={<Filter />} />
         <Route path="/news" element={<NewsPage />} />
+        <Route path="/memory" element={<RedirectSite />} />
       </Routes>
+
+      <footer className="bg bg-light">
+        <Container>
+          <Row className="py-2">
+            <Col>
+              <a
+                href="https://github.com/vuducle"
+                className="btn btn-secondary me-2"
+                title="GitHub"
+              >
+                <i className="bi bi-github" style={{ color: "#fff" }}></i>
+              </a>
+              <a
+                href="mailto:vuduc.le@icloud.com"
+                className="btn btn-secondary me-2"
+                title="E-Mail"
+              >
+                <i className="bi bi-envelope" style={{ color: "#fff" }}></i>
+              </a>
+              <a
+                href="https://www.linkedin.com/in/vuducle97/"
+                className="btn btn-primary"
+                title="LinkedIn"
+              >
+                <i className="bi bi-linkedin" style={{ color: "#fff" }}></i>
+              </a>
+            </Col>
+          </Row>
+        </Container>
+      </footer>
     </Router>
   );
 }

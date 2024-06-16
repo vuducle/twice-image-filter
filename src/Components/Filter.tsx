@@ -15,9 +15,9 @@ function Filter() {
   const [brightness, setBrightness] = useState<number>(100);
   const [grey, setGrey] = useState<number>(0);
   const [sepia, setSepia] = useState<number>(0);
-  const [red, setRed] = useState<number>(100);
-  const [green, setGreen] = useState<number>(100);
-  const [blue, setBlue] = useState<number>(100);
+  //   const [red, setRed] = useState<number>(100);
+  //   const [green, setGreen] = useState<number>(100);
+  //   const [blue, setBlue] = useState<number>(100);
   const [hueRotate, setHueRotate] = useState<number>(0);
   const [invert, setInvert] = useState<number>(0);
   const [blur, setBlur] = useState<number>(0);
@@ -43,9 +43,9 @@ function Filter() {
     setBrightness(100);
     setGrey(0);
     setSepia(0);
-    setRed(100);
-    setGreen(100);
-    setBlue(100);
+    // setRed(100);
+    // setGreen(100);
+    // setBlue(100);
     setHueRotate(0);
     setInvert(0);
     setBlur(0);
@@ -65,10 +65,10 @@ function Filter() {
       invert(${invert}%) 
       blur(${blur}px) 
       opacity(${opacity}%) 
-      hue-rotate(${(red - 100) * 1.8}deg) 
-      hue-rotate(${(green - 100) * 1.8}deg) 
-      hue-rotate(${(blue - 100) * 1.8}deg)
     `;
+    // hue-rotate(${(red - 100) * 1.8}deg)
+    //   hue-rotate(${(green - 100) * 1.8}deg)
+    //   hue-rotate(${(blue - 100) * 1.8}deg)
     return style;
   };
 
@@ -247,7 +247,9 @@ function Filter() {
             </Form.Group>
 
             <hr></hr>
-            <Form.Group controlId="red">
+            <h3>Presets</h3>
+            {/* Ist reduntant */}
+            {/* <Form.Group controlId="red">
               <Form.Label>Red - {red}</Form.Label>
               <Form.Range
                 min={0}
@@ -277,7 +279,7 @@ function Filter() {
                 value={blue}
                 onChange={(e) => setBlue(Number(e.target.value))}
               />
-            </Form.Group>
+            </Form.Group> */}
 
             <div className="d-flex justify-content-between">
               <button onClick={applyFilter} className="btn btn-success mt-2">
