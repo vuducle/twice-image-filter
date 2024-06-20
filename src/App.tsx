@@ -44,8 +44,8 @@ function App() {
 
       <footer className="bg bg-light">
         <Container>
-          <Row className="py-2">
-            <Col>
+          <Row className="py-2 d-flex align-items-center">
+            <Col md={8}>
               <a
                 href="https://github.com/vuducle"
                 className="btn btn-secondary me-2"
@@ -68,6 +68,7 @@ function App() {
                 <i className="bi bi-linkedin" style={{ color: "#fff" }}></i>
               </a>
             </Col>
+            <Col md={4}>&copy; - 2024</Col>
           </Row>
         </Container>
       </footer>

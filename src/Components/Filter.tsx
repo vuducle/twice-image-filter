@@ -6,6 +6,8 @@ import Col from "react-bootstrap/Col";
 import useImagePreview from "../hooks/useImagePreview";
 import Form from "react-bootstrap/Form";
 import TWICE from "../assets/twice_one.jpg";
+import none from "../assets/none.jpg";
+import lofi from "../assets/lofi.jpg";
 
 function Filter() {
   const [image, setImage] = useState<File | null>(null);
@@ -15,13 +17,11 @@ function Filter() {
   const [brightness, setBrightness] = useState<number>(100);
   const [grey, setGrey] = useState<number>(0);
   const [sepia, setSepia] = useState<number>(0);
-  //   const [red, setRed] = useState<number>(100);
-  //   const [green, setGreen] = useState<number>(100);
-  //   const [blue, setBlue] = useState<number>(100);
   const [hueRotate, setHueRotate] = useState<number>(0);
   const [invert, setInvert] = useState<number>(0);
   const [blur, setBlur] = useState<number>(0);
   const [opacity, setOpacity] = useState<number>(100);
+  const [presetActive, setPresetActive] = useState<string>("none");
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
@@ -43,13 +43,30 @@ function Filter() {
     setBrightness(100);
     setGrey(0);
     setSepia(0);
-    // setRed(100);
-    // setGreen(100);
-    // setBlue(100);
     setHueRotate(0);
     setInvert(0);
     setBlur(0);
     setOpacity(100);
+    setPresetActive("none");
+  };
+
+  const lofiFilter = () => {
+    // Apply Lo-Fi preset values
+    setSaturation(120);
+    setContrast(140);
+    setBrightness(110);
+    setGrey(0);
+    setSepia(30);
+    setHueRotate(0);
+    setInvert(0);
+    setBlur(0);
+    setOpacity(100);
+    setPresetActive("lofi");
+  };
+
+  const noneFilter = () => {
+    resetFilter();
+    setPresetActive("none");
   };
 
   const previewSrc = useImagePreview(image);
@@ -66,9 +83,7 @@ function Filter() {
       blur(${blur}px) 
       opacity(${opacity}%) 
     `;
-    // hue-rotate(${(red - 100) * 1.8}deg)
-    //   hue-rotate(${(green - 100) * 1.8}deg)
-    //   hue-rotate(${(blue - 100) * 1.8}deg)
+
     return style;
   };
 
@@ -90,6 +105,22 @@ function Filter() {
 
       ctx.filter = changeValue();
       ctx.drawImage(imageElement, 0, 0, canvas.width, canvas.height);
+
+      if (presetActive === "lofi") {
+        const gradient = ctx.createRadialGradient(
+          canvas.width / 2,
+          canvas.height / 2,
+          (canvas.width / 2) * 0.7,
+          canvas.width / 2,
+          canvas.height / 2,
+          canvas.width / 2
+        );
+        gradient.addColorStop(0, "rgba(0, 0, 0, 0)");
+        gradient.addColorStop(1, "rgb(34, 34, 34)");
+
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
 
       const dataUrl = canvas.toDataURL("image/png");
       setFilteredSrc(dataUrl);
@@ -121,6 +152,7 @@ function Filter() {
                 aspectRatio: "4 / 3",
                 backgroundColor: "silver",
                 overflow: "hidden",
+                position: "relative",
               }}
             >
               <img
@@ -130,6 +162,20 @@ function Filter() {
                 height="100%"
                 style={{ objectFit: "cover", filter: changeValue() }}
               />
+              {presetActive === "lofi" && (
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    background:
+                      "-webkit-radial-gradient(center center, circle closest-corner, rgba(0, 0, 0, 0) 70%, rgb(34, 34, 34) 100%)",
+                    mixBlendMode: "multiply",
+                  }}
+                />
+              )}
               <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
             </div>
           </Col>
@@ -248,39 +294,23 @@ function Filter() {
 
             <hr></hr>
             <h3>Presets</h3>
-            {/* Ist reduntant */}
-            {/* <Form.Group controlId="red">
-              <Form.Label>Red - {red}</Form.Label>
-              <Form.Range
-                min={0}
-                max={200}
-                step={1}
-                value={red}
-                onChange={(e) => setRed(Number(e.target.value))}
-              />
-            </Form.Group>
-            <Form.Group controlId="green">
-              <Form.Label>Green - {green}</Form.Label>
-              <Form.Range
-                min={0}
-                max={200}
-                step={1}
-                value={green}
-                onChange={(e) => setGreen(Number(e.target.value))}
-              />
-            </Form.Group>
+            <div className="d-flex justify-content-between flex-wrap">
+              <button
+                className="btn btn-primary d-flex flex-column align-items-center"
+                onClick={noneFilter}
+              >
+                <img src={none} className="img-fluid" style={{ height: 100 }} />
+                None
+              </button>
 
-            <Form.Group controlId="blue">
-              <Form.Label>Blue - {blue}</Form.Label>
-              <Form.Range
-                min={0}
-                max={200}
-                step={1}
-                value={blue}
-                onChange={(e) => setBlue(Number(e.target.value))}
-              />
-            </Form.Group> */}
-
+              <button
+                className="btn btn-primary d-flex flex-column align-items-center"
+                onClick={lofiFilter}
+              >
+                <img className="img-fluid" style={{ height: 100 }} src={lofi} />
+                Lofi
+              </button>
+            </div>
             <div className="d-flex justify-content-between">
               <button onClick={applyFilter} className="btn btn-success mt-2">
                 Apply Filter
