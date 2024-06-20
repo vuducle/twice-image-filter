@@ -299,7 +299,12 @@ function Filter() {
                 className="btn btn-primary d-flex flex-column align-items-center"
                 onClick={noneFilter}
               >
-                <img src={none} className="img-fluid" style={{ height: 100 }} />
+                <img
+                  src={none}
+                  className="img-fluid"
+                  alt="None"
+                  style={{ height: 100 }}
+                />
                 None
               </button>
 
@@ -307,7 +312,12 @@ function Filter() {
                 className="btn btn-primary d-flex flex-column align-items-center"
                 onClick={lofiFilter}
               >
-                <img className="img-fluid" style={{ height: 100 }} src={lofi} />
+                <img
+                  className="img-fluid"
+                  alt="Logi"
+                  style={{ height: 100 }}
+                  src={lofi}
+                />
                 Lofi
               </button>
             </div>
